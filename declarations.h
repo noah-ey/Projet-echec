@@ -3,7 +3,8 @@
 
 
 //Définitons de toutes les fonctions
-Case **créer_plateau(); 
+Case **créer_plateau();
+Case *creer_plateau_liste();
 void affichage(Partie* partie); 
 
 
