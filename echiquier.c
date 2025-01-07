@@ -48,8 +48,8 @@ nicooooooooooooooooooooooooooooooooooooooooo
 #define MAX_CASE 8
 
 // Définition des types
-typedef enum piece { VIDE, PION, TOUR, CAVALIER, FOU, REINE, ROI } Piece;
-typedef enum couleur { BLANC, NOIR } Couleur;
+typedef enum piece { vide, pion, tour, cavalier, fou, reine, roi } Piece;
+typedef enum couleur { blanc, noir } Couleur;
 
 typedef struct case {
     Piece p;
@@ -64,79 +64,52 @@ typedef struct coup {
 } Coup;
 
 typedef struct partie {
-    Case** plateau;
+    Case** echiquier;
     Couleur joueur_actif;
 } Partie;
 
-// Fonction pour allouer et initialiser le plateau
-Case** creer_plateau() {
-    // Allocation du plateau 8x8
-    Case** plateau = malloc(MAX_CASE * sizeof(Case*));
-    if (!plateau) {
-        perror("Erreur d'allocation mémoire pour le plateau");
-        exit(EXIT_FAILURE);
+// Fonction pour allouer et initialiser l'échiquier
+Case** creer_echiquier() {
+    // On alloue l'échiquier 8x8
+    Case** echiquier = (Case**)malloc(MAX_CASE * sizeof(Case*));
+    if (echiquier == NULL) {
+        printf("Erreur Dans L’Allocation Mémoire Pour L’Échiquier\n");
+        exit(1);
     }
 
+    // On alloue chaque ligne de l'échiquier
     for (int i = 0; i < MAX_CASE; i++) {
-        plateau[i] = malloc(MAX_CASE * sizeof(Case));
-        if (!plateau[i]) {
-            perror("Erreur d'allocation mémoire pour une ligne du plateau");
-            exit(EXIT_FAILURE);
+        echiquier[i] = (Case*)malloc(MAX_CASE * sizeof(Case));
+        if (echiquier[i] == NULL) {
+            printf("Erreur Dans L’Allocation Mémoire Pour Une Ligne De L’Échiquier\n");
+            exit(1);
         }
     }
 
-    // Initialisation du plateau avec des cases vides
-    for (int i = 0; i < MAX_CASE; i++) {
-        for (int j = 0; j < MAX_CASE; j++) {
-            plateau[i][j].p = VIDE;
-            plateau[i][j].c = BLANC;  // Par défaut, on peut initialiser toutes les cases à BLANC
-        }
-    }
-
-    // Placement des pions
-    for (int j = 0; j < MAX_CASE; j++) {
-        plateau[1][j].p = PION;
-        plateau[1][j].c = NOIR;
-        plateau[6][j].p = PION;
-        plateau[6][j].c = BLANC;
-    }
-
-    // Placement des pièces majeures
-    Piece ordre_pieces[] = { TOUR, CAVALIER, FOU, REINE, ROI, FOU, CAVALIER, TOUR };
-    for (int j = 0; j < MAX_CASE; j++) {
-        plateau[0][j].p = ordre_pieces[j];
-        plateau[0][j].c = NOIR;
-        plateau[7][j].p = ordre_pieces[j];
-        plateau[7][j].c = BLANC;
-    }
-
-    return plateau;
-}
-
-// Fonction pour initialiser une partie
-Partie initialiser_partie() {
-    Partie partie;
-    partie.plateau = creer_plateau();
-    partie.joueur_actif = BLANC;  // Le joueur BLANC commence
-    return partie;
-}
-
-// Fonction pour afficher le plateau
-void afficher_plateau(Case** plateau) {
+    // On initialise l'échiquier avec des cases vides
     for (int i = 0; i < MAX_CASE; i++) {
         for (int j = 0; j < MAX_CASE; j++) {
-            char piece_char = '.';
-            switch (plateau[i][j].p) {
-                case PION: piece_char = 'P'; break;
-                case TOUR: piece_char = 'T'; break;
-                case CAVALIER: piece_char = 'C'; break;
-                case FOU: piece_char = 'F'; break;
-                case REINE: piece_char = 'D'; break;
-                case ROI: piece_char = 'R'; break;
-                default: break;
-            }
-            printf("%c ", piece_char);
+            echiquier[i][j].p = vide;
+            echiquier[i][j].c = blanc; // Par Défaut, Toutes Les Cases Sont Blanches
         }
-        printf("\n");
     }
+
+    // On place les pions
+    for (int j = 0; j < MAX_CASE; j++) {
+        echiquier[1][j].p = pion;
+        echiquier[1][j].c = noir;
+        echiquier[6][j].p = pion;
+        echiquier[6][j].c = blanc;
+    }
+
+    // On place les pièces
+    Piece ordre_pieces[] = { tour, cavalier, fou, reine, roi, fou, cavalier, tour };
+    for (int j = 0; j < MAX_CASE; j++) {
+        echiquier[0][j].p = ordre_pieces[j];
+        echiquier[0][j].c = noir;
+        echiquier[7][j].p = ordre_pieces[j];
+        echiquier[7][j].c = blanc;
+    }
+
+    return echiquier;
 }
