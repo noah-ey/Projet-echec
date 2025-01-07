@@ -3,7 +3,7 @@
 // Interaction avec le(s) joueur(s) : Demander la case puis l’action
 
 
-#include "fonctions.h"
+#include "declarations.h"
 
 // Renvoie un pointeur vers un plateau initialisé en début de partie
 Case **creer_plateau(){
