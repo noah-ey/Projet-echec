@@ -6,7 +6,7 @@
 #include "fonctions.h"
 
 // Renvoie un pointeur vers un plateau initialisé en début de partie
-Case **créer_plateau(){
+Case **creer_plateau(){
 	Case** plateau = malloc(sizeof((Case*));
 	for(int i = 0; i < 8; i++){
 		plateau[i] = malloc(8*sizeof(Case));
@@ -18,7 +18,12 @@ Case **créer_plateau(){
 
 	return plateau;
  }
- 
+
+// Plateau avec une liste par ligne
+Case *creer_plateau_liste(){
+
+}
+
 
 // Affiche l’état du jeu (plateau, joueur actif)
 void affichage(Partie* partie){
