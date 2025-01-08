@@ -8,7 +8,11 @@ int main() {
     
     afficher_plateau(plateau);
     
+    Coup coup = proposition_joueur();
+    
+    int verif = verifier_proposition(coup);
+    
+    
     liberer_plateau(plateau);
-
     return 0;
 }

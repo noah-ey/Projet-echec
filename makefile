@@ -1,11 +1,14 @@
-echec : main.o jeu.o
-	gcc main.o jeu.o -o echec
+echec : main.o echiquier.o joueur.o
+	gcc main.o echiquier.o joueur.o -o echec
 
 main.o : main.c declarations.h
 	gcc -c main.c
 
-jeu.o : jeu.c declarations.h
-	gcc -c jeu.c
+echiquier.o : echiquier.c declarations.h
+	gcc -c echiquier.c
+	
+joueur.o : joueur.c declarations.h
+	gcc -c joueur.c
 
 clean :
 	rm -f *.o echec

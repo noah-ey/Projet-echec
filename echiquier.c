@@ -1,8 +1,10 @@
 #include "declarations.h"
 
-/*
+/* ***************************************************
+
 Programme qui contient les fonctions nécessaires à la création et à l'affichage de l'échiquier
-*/
+
+*************************************************** */
 
 // Fonction pour obtenir le caractère de la pièce
 char aff_char(Case case_jeu) {
