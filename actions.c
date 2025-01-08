@@ -1,9 +1,9 @@
 
 // programme
 // fonction qui ?
+// verification de la possibilite des demandes (fichier c)
 // mouvement vert/horiz
 // mouvement diag
-// verification de la possibilite des demandes (fichier c)
 // mouvement des pieces/prend les pieces si besoin
 // fonction rock
 // situation d'echec
