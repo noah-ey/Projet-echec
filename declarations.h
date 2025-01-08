@@ -10,6 +10,7 @@ void affichage(Partie* partie);
 //fonction nico:
 char aff_char(Case case_jeu);
 char* couleur_piece(Couleur c);
+void afficher_plateau(Case** plateau);
 
 
 // Définition des structures
