@@ -22,6 +22,7 @@ void verti_Horiz (Coup){
     if ((xFrom == xTo) || (yFrom == yTo)){
         echiquier[xTo][yTo] = echiquier[xFrom][yFrom];
     }
+    
 }
 
 // fonctin qui verifie que le mouvement soit diagonal et qui deplace le pion si c'est bon
