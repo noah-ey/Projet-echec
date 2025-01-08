@@ -3,8 +3,6 @@
 // programme
 // fonction qui ?
 // verification de la possibilite des demandes (fichier c)
-// mouvement vert/horiz
-// mouvement diag
 // mouvement des pieces/prend les pieces si besoin
 // fonction rock
 // situation d'echec
@@ -21,7 +19,7 @@ void deplacement(Coup){
     echiquier[xFrom][yFrom].p = vide;
     return;
 }
-// fonctin qui verifie que le mouvement soit vertical et qui deplace le pion si c'est bon
+// fonctin qui verifie que le mouvement soit vertical
 int verti (Coup){
     if (yFrom != yTo)){
         printf("mouvement impossible car il n'est pas verti");
@@ -29,7 +27,7 @@ int verti (Coup){
     }
     return 1;
 }
-// fonctin qui verifie que le mouvement soit horizontal et qui deplace le pion si c'est bon
+// fonctin qui verifie que le mouvement soit horizontal
 int horiz (Coup){
     if ((yFrom != xTo) {
         printf("mouvement impossible car il n'est pas horiz");
@@ -37,7 +35,7 @@ int horiz (Coup){
     }
     return 1;
 }
-// fonctin qui verifie que le mouvement soit diagonal et qui deplace le pion si c'est bon
+// fonctin qui verifie que le mouvement soit diagonal
 int diagonal (Coup){
     if (xTo - xFrom != yTo - yFrom){  // dans la premiere diagonal
         return 0;
@@ -48,4 +46,14 @@ int diagonal (Coup){
     }
     return 1;
 }
-  
+// fonctin qui verifie que le mouvement soit bon pour le cavalier
+int mouvcavalier (Coup coup){
+    if ((abs (coup.xTo - coup.xFrom) != 2) && (abs (coup.yTo - coup.yFrom) != 1)){
+        return 0;
+    } else if ((abs (coup.xTo - coup.xFrom) != 2) && (abs (coup.yTo - coup.yFrom) != 1)){
+        return 0;
+    } 
+    return 1;
+}
+
+
