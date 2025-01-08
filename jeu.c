@@ -1,3 +1,5 @@
+#include "declarations.h"
+
 // programme
 // fonction qui ?
 // mouvement vert/horiz
