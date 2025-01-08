@@ -23,7 +23,7 @@ char* couleur_piece(Couleur c) {
 }
 
 // Fonction pour allouer et initialiser l'échiquier
-Case** creer_echiquier() {
+Case** creer_plateau() {
     // On alloue l'échiquier 8x8
     Case** echiquier = (Case**)malloc(NB_LIGNE * sizeof(Case*));
     if (echiquier == NULL) {
