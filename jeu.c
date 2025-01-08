@@ -1,4 +1,14 @@
-/
+// programme
+// fonction qui ?
+// mouvement vert/horiz
+// mouvement diag
+// mouvement des pieces/prend les pieces si besoin
+// verification de la possibilite des demandes
+// fonction rock
+
+// timer
+// les points des joueur
+
 
 // Fonction pour obtenir le caractère de la pièce
 char aff_char(Case case_jeu) {
