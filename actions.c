@@ -49,7 +49,7 @@ int diagonal (Coup coup){
 // fonctin qui verifie que le mouvement soit bon pour le cavalier et réalise le déplacement
 int mouvcavalier (Coup coup){
     if (((abs (coup.xTo - coup.xFrom) == 2) && (abs (coup.yTo - coup.yFrom) == 1) || 
-        (abs (coup.xTo - coup.xFrom) == 2) && (abs (coup.yTo - coup.yFrom) == 1))) && (coup.{
+        (abs (coup.xTo - coup.xFrom) == 2) && (abs (coup.yTo - coup.yFrom) == 1))) && (echiquier[xTo][yTo]==;{
         return 0;
     } 
     printf("Mouvement impossible car cela ne correspond pas au cavalier\n");
