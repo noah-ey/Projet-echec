@@ -2,8 +2,8 @@
 // fonction qui ?
 // mouvement vert/horiz
 // mouvement diag
-// mouvement des pieces/prend les pieces si besoin
 // verification de la possibilite des demandes
+// mouvement des pieces/prend les pieces si besoin
 // fonction rock
 
 // timer
