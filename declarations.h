@@ -3,11 +3,7 @@
 #define NB_LIGNE 8
 
 //Définitons de toutes les fonctions
-//fonction noah
 Case **creer_plateau();
-Case *creer_plateau_liste();
-void affichage(Partie* partie); 
-//fonction nico:
 char aff_char(Case case_jeu);
 char* couleur_piece(Couleur c);
 void afficher_plateau(Case** plateau);
