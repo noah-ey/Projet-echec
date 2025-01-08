@@ -1,13 +1,16 @@
 
 #include <stdio.h>
+#include <stdlib.h>
 
-int main(){
-	
-	// on utilise les fonctions
+int main() {
+    Case** plateau = creer_echiquier();
+    
+    afficher_plateau(plateau);
+    
+    for (int i = 0; i < NB_LIGNE; i++) {
+        free(plateau[i]);
+    }
+    free(plateau);
 
-
-
-	printf("a\e[33m a");
-
+    return 0;
 }
-
