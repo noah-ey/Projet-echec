@@ -9,6 +9,7 @@ Case *creer_plateau_liste();
 void affichage(Partie* partie); 
 //fonction nico:
 char aff_char(Case case_jeu);
+char* couleur_piece(Couleur c);
 
 
 // Définition des structures
