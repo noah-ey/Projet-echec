@@ -46,12 +46,22 @@ int diagonal (Coup coup){
     }
     return 0;
 }
-// fonctin qui verifie que le mouvement soit bon pour le cavalier
+// fonctin qui verifie que le mouvement soit bon pour le cavalier et réalise le déplacement
 int mouvcavalier (Coup coup){
-    if ((abs (coup.xTo - coup.xFrom) == 2) && (abs (coup.yTo - coup.yFrom) == 1) || (abs (coup.xTo - coup.xFrom) == 2) && (abs (coup.yTo - coup.yFrom) == 1)){
-        return 1;
+    if (((abs (coup.xTo - coup.xFrom) == 2) && (abs (coup.yTo - coup.yFrom) == 1) || 
+        (abs (coup.xTo - coup.xFrom) == 2) && (abs (coup.yTo - coup.yFrom) == 1))) && (coup.{
+        return 0;
     } 
     printf("Mouvement impossible car cela ne correspond pas au cavalier\n");
-    return 0;
+    return 1;
+}
+
+// fonctin qui verifie que le mouvement soit bon pour la tour et réalise le déplacement
+void mouvtour (Coup coup){
+    if ((abs (coup.xTo - coup.xFrom) == 2) && (abs (coup.yTo - coup.yFrom) == 1) || (abs (coup.xTo - coup.xFrom) == 2) && (abs (coup.yTo - coup.yFrom) == 1)){
+        return;
+    } 
+    printf("Mouvement impossible car cela ne correspond pas à la tour\n");
+    return;
 }
 
