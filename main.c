@@ -4,7 +4,7 @@
 #include "declarations.h"
 
 int main() {
-    Case** plateau = creer_echiquier();
+    Case** plateau = creer_plateau();
     
     afficher_plateau(plateau);
     
