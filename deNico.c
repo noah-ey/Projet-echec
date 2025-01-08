@@ -1,7 +1,7 @@
 /
 
 // Fonction pour obtenir le caractère de la pièce
-char piece2char(Case case_jeu) {
+char aff_char(Case case_jeu) {
     switch (case_jeu.p) {
         case pion: return (case_jeu.c == blanc) ? 'P' : 'p';
         case tour: return (case_jeu.c == blanc) ? 'T' : 't';
@@ -82,10 +82,10 @@ void afficher_plateau(Case** plateau) {
         for (int j = 0; j < NB_LIGNE; j++) {
             if ((i + j) % 2 == 0) {
                 // Case sombre : bleu foncé
-                printf("\033[48;5;17m  %s%c  \033[0m", couleur_piece(plateau[i][j].c), piece2char(plateau[i][j]));
+                printf("\033[48;5;17m  %s%c  \033[0m", couleur_piece(plateau[i][j].c), aff_char(plateau[i][j]));
             } else {
                 // Case claire : gris clair
-                printf("\033[48;5;250m  %s%c  \033[0m", couleur_piece(plateau[i][j].c), piece2char(plateau[i][j]));
+                printf("\033[48;5;250m  %s%c  \033[0m", couleur_piece(plateau[i][j].c), aff_char(plateau[i][j]));
             }
         }
         printf("\n");
