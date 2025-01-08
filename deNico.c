@@ -1,11 +1,17 @@
+// mettre dans un .h
+
 #include <stdio.h>
 #include <stdlib.h>
 
-#define MAX_CASE 8
+#define NB_LIGNE 8
 
 // Définition des types
-typedef enum piece { vide, pion, tour, cavalier, fou, reine, roi } Piece;
-typedef enum couleur { blanc, noir } Couleur;
+typedef enum piece { 
+    vide, pion, tour, cavalier, fou, reine, roi 
+} Piece;
+typedef enum couleur {
+blanc, noir 
+} Couleur;
 
 typedef struct Case {
     Piece p;
@@ -45,31 +51,31 @@ const char* couleur_piece(Couleur c) {
 // Fonction pour allouer et initialiser l'échiquier
 Case** creer_echiquier() {
     // On alloue l'échiquier 8x8
-    Case** echiquier = (Case**)malloc(MAX_CASE * sizeof(Case*));
+    Case** echiquier = (Case**)malloc(NB_LIGNE * sizeof(Case*));
     if (echiquier == NULL) {
         printf("Erreur dans l'allocation mémoire pour l'échiquier\n");
         exit(1);
     }
 
     // On alloue chaque ligne de l'échiquier
-    for (int i = 0; i < MAX_CASE; i++) {
-        echiquier[i] = (Case*)malloc(MAX_CASE * sizeof(Case));
-        if (echiquier[i] == NULL) {
+    for (int i = 0; i < NB_LIGNE; i++) {
+        echiquier[i] = (Case*)malloc(NB_LIGNE * sizeof(Case));
+        if (echiquier[i] == NULL) {max
             printf("Erreur dans l'allocation mémoire pour une ligne de l'échiquier\n");
             exit(1);
         }
     }
 
     // On initialise l'échiquier avec des cases vides
-    for (int i = 0; i < MAX_CASE; i++) {
-        for (int j = 0; j < MAX_CASE; j++) {
+    for (int i = 0; i < NB_LIGNE; i++) {
+        for (int j = 0; j < NB_LIGNE; j++) {
             echiquier[i][j].p = vide;
             echiquier[i][j].c = blanc; // Par défaut, toutes les cases sont blanches
         }
     }
 
     // On place les pions
-    for (int j = 0; j < MAX_CASE; j++) {
+    for (int j = 0; j < NB_LIGNE; j++) {
         echiquier[1][j].p = pion;
         echiquier[1][j].c = noir;
         echiquier[6][j].p = pion;
@@ -78,7 +84,7 @@ Case** creer_echiquier() {
 
     // On place les pièces
     Piece ordre_pieces[] = { tour, cavalier, fou, reine, roi, fou, cavalier, tour };
-    for (int j = 0; j < MAX_CASE; j++) {
+    for (int j = 0; j < NB_LIGNE; j++) {
         echiquier[0][j].p = ordre_pieces[j];
         echiquier[0][j].c = noir;
         echiquier[7][j].p = ordre_pieces[j];
@@ -90,8 +96,8 @@ Case** creer_echiquier() {
 
 // Fonction pour afficher l'échiquier avec des couleurs de fond
 void afficher_plateau(Case** plateau) {
-    for (int i = 0; i < MAX_CASE; i++) {
-        for (int j = 0; j < MAX_CASE; j++) {
+    for (int i = 0; i < NB_LIGNE; i++) {
+        for (int j = 0; j < NB_LIGNE; j++) {
             if ((i + j) % 2 == 0) {
                 // Case sombre : bleu foncé
                 printf("\033[48;5;17m     \033[0m");
@@ -103,7 +109,7 @@ void afficher_plateau(Case** plateau) {
         printf("\n");
 
         // Afficher les pièces sur chaque case
-        for (int j = 0; j < MAX_CASE; j++) {
+        for (int j = 0; j < NB_LIGNE; j++) {
             if ((i + j) % 2 == 0) {
                 // Case sombre : bleu foncé
                 printf("\033[48;5;17m  %s%c  \033[0m", couleur_piece(plateau[i][j].c), piece2char(plateau[i][j]));
@@ -114,7 +120,7 @@ void afficher_plateau(Case** plateau) {
         }
         printf("\n");
 
-        for (int j = 0; j < MAX_CASE; j++) {
+        for (int j = 0; j < NB_LIGNE; j++) {
             if ((i + j) % 2 == 0) {
                 // Case sombre : bleu foncé
                 printf("\033[48;5;17m     \033[0m");
@@ -132,7 +138,7 @@ int main() {
     
     afficher_plateau(plateau);
     
-    for (int i = 0; i < MAX_CASE; i++) {
+    for (int i = 0; i < NB_LIGNE; i++) {
         free(plateau[i]);
     }
     free(plateau);
