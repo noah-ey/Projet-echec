@@ -68,6 +68,12 @@ Case** creer_echiquier() {
     return echiquier;
 }
 
+// Fonction pour libérer l'échiquier
+for (int i = 0; i < NB_LIGNE; i++) {
+        free(plateau[i]);
+    }
+    free(plateau);
+
 // Fonction pour afficher l'échiquier avec des couleurs de fond
 void afficher_plateau(Case** plateau) {
     for (int i = 0; i < NB_LIGNE; i++) {
