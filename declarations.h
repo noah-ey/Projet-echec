@@ -3,13 +3,6 @@
 
 #define NB_LIGNE 8
 
-//Définitons de toutes les fonctions
-Case **creer_plateau();
-void liberer_plateau(Case **plateau);
-char aff_char(Case case_jeu);
-char* couleur_piece(Couleur c);
-void afficher_plateau(Case** plateau);
-
 
 // Définition des structures
 typedef enum piece { 
@@ -35,3 +28,18 @@ typedef struct partie {
     Case** echiquier;
     Couleur joueur_actif;
 } Partie;
+
+
+
+//Définitons de toutes les fonctions
+Case **creer_plateau();
+void liberer_plateau(Case **plateau);
+char aff_char(Case case_jeu);
+char* couleur_piece(Couleur c);
+void afficher_plateau(Case** plateau);
+
+Coup proposition_joueur();
+int verifier_proposition(Coup prop);
+int verifier_coup(Partie* partie, Coup coup);
+
+
