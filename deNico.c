@@ -14,7 +14,7 @@ char aff_char(Case case_jeu) {
 }
 
 // Fonction pour obtenir la couleur d'affichage d'une pièce
-const char* couleur_piece(Couleur c) {
+char* couleur_piece(Couleur c) {
     return (c == blanc) ? "\033[32m" : "\033[31m";  // Vert pour blanc, Rouge pour noir
 }
 
@@ -30,7 +30,7 @@ Case** creer_echiquier() {
     // On alloue chaque ligne de l'échiquier
     for (int i = 0; i < NB_LIGNE; i++) {
         echiquier[i] = (Case*)malloc(NB_LIGNE * sizeof(Case));
-        if (echiquier[i] == NULL) {max
+        if (echiquier[i] == NULL) {
             printf("Erreur dans l'allocation mémoire pour une ligne de l'échiquier\n");
             exit(1);
         }
