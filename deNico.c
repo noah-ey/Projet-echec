@@ -1,34 +1,4 @@
-// mettre dans un .h
-
-#include <stdio.h>
-#include <stdlib.h>
-
-#define NB_LIGNE 8
-
-// Définition des types
-typedef enum piece { 
-    vide, pion, tour, cavalier, fou, reine, roi 
-} Piece;
-typedef enum couleur {
-blanc, noir 
-} Couleur;
-
-typedef struct Case {
-    Piece p;
-    Couleur c;
-} Case;
-
-typedef struct coup {
-    int xFrom;
-    int yFrom;
-    int xTo;
-    int yTo;
-} Coup;
-
-typedef struct partie {
-    Case** echiquier;
-    Couleur joueur_actif;
-} Partie;
+/
 
 // Fonction pour obtenir le caractère de la pièce
 char piece2char(Case case_jeu) {
