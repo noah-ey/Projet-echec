@@ -8,7 +8,7 @@ int main() {
     
     afficher_plateau(plateau);
     
-    
+    liberer_plateau(plateau);
 
     return 0;
 }
