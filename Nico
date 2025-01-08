@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <math.h>
 
 #define NB_LIGNE 8
 
@@ -156,34 +157,30 @@ void afficher_plateau(Case** plateau) {
 }
 ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
 // fonction qui deplace la piece sans condition
-void deplacement(Coup coup){
-    echiquier[xTo][yTo] = echiquier[xFrom][yFrom];
-    echiquier[xFrom][yFrom].p = vide;
+void deplacement(Case** echiquier,Coup coup){
+    echiquier[coup.xTo][coup.yTo] = echiquier[coup.xFrom][coup.yFrom];
+    echiquier[coup.xFrom][coup.yFrom].p = vide;
     return;
 }
 // fonctin qui verifie que le mouvement soit vertical
 int verti (Coup coup){
-    if (yFrom == yTo)){
+    if (coup.yFrom == coup.yTo){
         printf("mouvement impossible car il n'est pas verti\n");
-        return 1;
+        return 0;
     }
-    return 0;
+    return 1;
 }
 // fonctin qui verifie que le mouvement soit horizontal
 int horiz (Coup coup){
-    if ((yFrom == xTo) {
-        printf("mouvement impossible car il n'est pas horiz\n");
-        return 1;
+    if (coup.xFrom == coup.xTo) {
+        return 0;
     }
-    return 0;
+    printf("mouvement impossible car il n'est pas horiz\n");
+    return 1;
 }
 // fonctin qui verifie que le mouvement soit diagonal
 int diagonal (Coup coup){
-    if (xTo - xFrom == yTo - yFrom){  // dans la premiere diagonal
-        return 1;
-    } if (-yTo + xFrom == xTo - yFrom){  // dans la deuxieme diagonal 
-        return 1;
-    } if (yTo + xFrom == xTo + yFrom){  // dans la deuxieme diagonal en bas
+    if (abs(coup.xTo - coup.xFrom) == abs(coup.yTo - coup.yFrom)){
         return 1;
     }
     return 0;
@@ -217,7 +214,7 @@ Coup proposition_joueur(){
 }
 
 // Fonction qui vérifie si 'prop' est un coup correspondant à l'échiquier
-int verifier_proposition(Coup prop){
+int verifier_proposition(Case** echiquier,Coup prop){
 	
 	if(prop.xFrom >= NB_LIGNE || prop.xFrom < 0){
 		printf("Attention il ne s'agit pas d'un coup\n");
@@ -235,7 +232,10 @@ int verifier_proposition(Coup prop){
 		printf("Attention il ne s'agit pas d'un coup\n");
 		return 0;
 	}
-	
+	if (echiquier[prop.xFrom][prop.yFrom].p == vide) {
+   		printf("La case initiale est vide\n");
+    		return 0;
+	}
 	printf("Il s'agit d'un coup\n");	
 	return 1; // Si on atteind cette ligne alors la proposition est un coup
 }
