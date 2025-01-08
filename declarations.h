@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
+
 #define NB_LIGNE 8
 
 //Définitons de toutes les fonctions
