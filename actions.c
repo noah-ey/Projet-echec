@@ -1,4 +1,5 @@
 
+
 // programme
 // fonction qui ?
 // verification de la possibilite des demandes (fichier c)
@@ -13,3 +14,7 @@
 // les fonction save (qui permet de revenir en arriere une fois)
 
 // realiser 1000 test pour par exemple si il mets é au lieu de 2 que cela ne fasse pas de la dé
+
+void vertical (Coup){
+    if (
+}
