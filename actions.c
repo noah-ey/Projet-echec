@@ -39,8 +39,13 @@ int horiz (Coup){
 }
 // fonctin qui verifie que le mouvement soit diagonal et qui deplace le pion si c'est bon
 int diagonal (Coup){
-    if ((xTo - xFrom != yTo - yFrom) || (-yTo + xFrom != xTo - yFrom) || (yTo + xFrom != xTo + yFrom)){ // dans la premiere diagonal puis dans la deuxieme diagonal en haut puis dans la deuxieme diagonal en bas
+    if (xTo - xFrom != yTo - yFrom){  // dans la premiere diagonal
+        return 0;
+    } if (-yTo + xFrom != xTo - yFrom){  // dans la deuxieme diagonal 
+        return 0;
+    } if (yTo + xFrom != xTo + yFrom){  // dans la deuxieme diagonal en bas
         return 0;
     }
     return 1;
 }
+  
