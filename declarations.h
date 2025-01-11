@@ -42,4 +42,6 @@ Coup proposition_joueur();
 int verifier_proposition(Coup prop);
 int verifier_coup(Partie* partie, Coup coup);
 
+void deplacement(Case** echiquier,Coup coup);
+
 
