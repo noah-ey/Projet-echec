@@ -11,6 +11,10 @@ int main() {
     Coup coup = proposition_joueur();
     
     int verif = verifier_proposition(coup);
+
+    deplacement(plateau, coup);
+
+    
     
     
     liberer_plateau(plateau);
