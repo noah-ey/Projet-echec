@@ -79,7 +79,7 @@ Case** creer_plateau() {
         }
     }
 
-    // On initialise l'échiquier avec des cases vides
+    // On initialise l'échiquier avec les cases vides
     for (int i = 0; i < NB_LIGNE; i++) {
         for (int j = 0; j < NB_LIGNE; j++) {
             echiquier[i][j].p = vide;
@@ -143,6 +143,7 @@ void afficher_plateau(Case** plateau) {
         }
         printf("\n");
 
+    // Redondance/ Supprimer ?? Nico explique moi mdr
         for (int j = 0; j < NB_LIGNE; j++) {
             if ((i + j) % 2 == 0) {
                 // Case sombre : bleu foncé
@@ -162,7 +163,7 @@ void deplacement(Case** echiquier,Coup coup){
     echiquier[coup.xFrom][coup.yFrom].p = vide;
     return;
 }
-// fonctin qui verifie que le mouvement soit vertical
+// fonction qui verifie que le mouvement soit vertical
 int verti (Coup coup){
     if (coup.yFrom == coup.yTo){
         printf("mouvement impossible car il n'est pas verti\n");
@@ -170,7 +171,7 @@ int verti (Coup coup){
     }
     return 1;
 }
-// fonctin qui verifie que le mouvement soit horizontal
+// fonction qui verifie que le mouvement soit horizontal
 int horiz (Coup coup){
     if (coup.xFrom == coup.xTo) {
         return 0;
@@ -178,17 +179,17 @@ int horiz (Coup coup){
     printf("mouvement impossible car il n'est pas horiz\n");
     return 1;
 }
-// fonctin qui verifie que le mouvement soit diagonal
+// fonction qui verifie que le mouvement soit diagonal
 int diagonal (Coup coup){
-    if (abs(coup.xTo - coup.xFrom) == abs(coup.yTo - coup.yFrom)){
+    if (abs(coup.xTo - coup.xFrom) == abs(coup.yTo - coup.yFrom)){ //HAHA la valeur absolue suffisait bien mdrr
         return 1;
     }
     return 0;
 }
-// fonctin qui verifie que le mouvement soit bon pour le cavalier
+// fonction qui verifie que le mouvement soit bon pour le cavalier
 int verifcavalier (Coup coup){
     if (((abs (coup.xTo - coup.xFrom) == 2) && (abs (coup.yTo - coup.yFrom) == 1) || 
-        (abs (coup.xTo - coup.xFrom) == 2) && (abs (coup.yTo - coup.yFrom) == 1))){
+        (abs (coup.xTo - coup.xFrom) == 2) && (abs (coup.yTo - coup.yFrom) == 1))){ // 2 fois la même condition, je pense qu'il faut changer quelque chose
         return 0;
     } 
     printf("Mouvement impossible car cela ne correspond pas au cavalier\n");
