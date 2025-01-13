@@ -159,41 +159,42 @@ void afficher_plateau(Case** plateau) {
 ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
 // fonction qui deplace la piece sans condition
 void deplacement(Case** echiquier,Coup coup){
-    echiquier[coup.xTo][coup.yTo] = echiquier[coup.xFrom][coup.yFrom];
-    echiquier[coup.xFrom][coup.yFrom].p = vide;
-    return;
+	echiquier[coup.xTo][coup.yTo] = echiquier[coup.xFrom][coup.yFrom];
+    	echiquier[coup.xFrom][coup.yFrom].p = vide;
+    	return;
 }
+
 // fonction qui verifie que le mouvement soit vertical
 int verti(Coup coup){
-    if (coup.yFrom == coup.yTo){
-        printf("mouvement impossible car il n'est pas verti\n");
-        return 0;
-    }
-    return 1;
+	if (coup.yFrom == coup.yTo){
+		return 1;
+	}
+	printf("mouvement impossible car il n'est pas verti\n");
+	return 0;
 }
 // fonction qui verifie que le mouvement soit horizontal
 int horiz(Coup coup){
-    if (coup.xFrom == coup.xTo) {
-        return 0;
-    }
-    printf("mouvement impossible car il n'est pas horiz\n");
-    return 1;
+	if (coup.xFrom == coup.xTo) {
+		return 1;
+	}
+	printf("mouvement impossible car il n'est pas horiz\n");
+    	return 0;
 }
 // fonction qui verifie que le mouvement soit diagonal
 int diagonal(Coup coup){
-    if (abs(coup.xTo - coup.xFrom) == abs(coup.yTo - coup.yFrom)){ //HAHA la valeur absolue suffisait bien mdrr
-        return 1;
-    }
-    return 0;
+	if (abs(coup.xTo - coup.xFrom) == abs(coup.yTo - coup.yFrom)){ //HAHA la valeur absolue suffisait bien mdrr
+		return 1;
+	}
+	printf("mouvement impossible car il n'est pas verti\n");
+	return 0;
 }
 // fonction qui verifie que le mouvement soit bon pour le cavalier
 int verifCavalier(Coup coup){
-    if (((abs (coup.xTo - coup.xFrom) == 2) && (abs (coup.yTo - coup.yFrom) == 1) || 
-        (abs (coup.xTo - coup.xFrom) == 2) && (abs (coup.yTo - coup.yFrom) == 1))){ // 2 fois la même condition, je pense qu'il faut changer quelque chose
-        return 0;
-    } 
-    printf("Mouvement impossible car cela ne correspond pas au cavalier\n");
-    return 1;
+	if (((abs (coup.xTo - coup.xFrom) == 2) && (abs (coup.yTo - coup.yFrom) == 1) || (abs (coup.xTo - coup.xFrom) == 2) && (abs (coup.yTo - coup.yFrom) == 1))){ // 2 fois la même condition, je pense qu'il faut changer quelque chose
+		return 1;
+	} 
+	printf("Mouvement impossible car cela ne correspond pas au cavalier\n");
+	return 0;
 }
 
 OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
