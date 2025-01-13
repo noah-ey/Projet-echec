@@ -43,5 +43,9 @@ int verifier_proposition(Coup prop){
 
 // Vérifie que le coup est jouable / légal ?
 int verifier_coup(Partie* partie, Coup coup){
-	
+	Case** plateau = partie.echiquier;
+
+	if(plateau[coup.xFrom][coup.yFrom].p == vide){
+		printf("Veuillez choisir une case contenant une pièce !\n");
+	}
 }
