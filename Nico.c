@@ -164,7 +164,7 @@ void deplacement(Case** echiquier,Coup coup){
     return;
 }
 // fonction qui verifie que le mouvement soit vertical
-int verti (Coup coup){
+int verti(Coup coup){
     if (coup.yFrom == coup.yTo){
         printf("mouvement impossible car il n'est pas verti\n");
         return 0;
@@ -172,7 +172,7 @@ int verti (Coup coup){
     return 1;
 }
 // fonction qui verifie que le mouvement soit horizontal
-int horiz (Coup coup){
+int horiz(Coup coup){
     if (coup.xFrom == coup.xTo) {
         return 0;
     }
@@ -180,14 +180,14 @@ int horiz (Coup coup){
     return 1;
 }
 // fonction qui verifie que le mouvement soit diagonal
-int diagonal (Coup coup){
+int diagonal(Coup coup){
     if (abs(coup.xTo - coup.xFrom) == abs(coup.yTo - coup.yFrom)){ //HAHA la valeur absolue suffisait bien mdrr
         return 1;
     }
     return 0;
 }
 // fonction qui verifie que le mouvement soit bon pour le cavalier
-int verifcavalier (Coup coup){
+int verifCavalier(Coup coup){
     if (((abs (coup.xTo - coup.xFrom) == 2) && (abs (coup.yTo - coup.yFrom) == 1) || 
         (abs (coup.xTo - coup.xFrom) == 2) && (abs (coup.yTo - coup.yFrom) == 1))){ // 2 fois la même condition, je pense qu'il faut changer quelque chose
         return 0;
