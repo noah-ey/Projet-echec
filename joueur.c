@@ -11,7 +11,7 @@ Coup proposition_joueur(){
 	printf("xTo : "); scanf("%d", &xTo);
 	printf("yTo : "); scanf("%d", &yTo);
 	
-	Coup res = {xFrom, yFrom, xTo, yTo};
+	Coup res = {xFrom-1, yFrom-1, xTo-1, yTo-1};
 	return (res);
 }
 
@@ -45,7 +45,14 @@ int verifier_proposition(Coup prop){
 int verifier_coup(Partie* partie, Coup coup){
 	Case** plateau = partie.echiquier;
 
-	if(plateau[coup.xFrom][coup.yFrom].p == vide){
+	// Analysons quel type de pièce l'utilisateur veut déplacer, afin de vérifier si le coup demandé correspond
+	if(plateau[coup.xFrom][coup.yFrom].p == vide){ // Cas d'une case vide
 		printf("Veuillez choisir une case contenant une pièce !\n");
+		return 0;
+	}
+	if(plateau[coup.xFrom][coup.yFrom].p == tour){ // Cas d'une tour
+		if(verti(coup) || horiz(coup)){
+			return True;
+		}
 	}
 }
