@@ -1,5 +1,8 @@
 #include "declarations.h"
 
+/*
+Fichier qui gère les interactions avec les joueurs
+*/
 
 // Demande au joueur son coup dans le code généré
 Coup proposition_joueur(){
