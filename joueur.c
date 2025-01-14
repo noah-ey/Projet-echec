@@ -46,13 +46,23 @@ int verifier_coup(Partie* partie, Coup coup){
 	Case** plateau = partie.echiquier;
 
 	// Analysons quel type de pièce l'utilisateur veut déplacer, afin de vérifier si le coup demandé correspond
-	if(plateau[coup.xFrom][coup.yFrom].p == vide){ // Cas d'une case vide
+	// Cas d'une case vide
+	if(plateau[coup.xFrom][coup.yFrom].p == vide){ 
 		printf("Veuillez choisir une case contenant une pièce !\n");
 		return 0;
 	}
-	if(plateau[coup.xFrom][coup.yFrom].p == tour){ // Cas d'une tour
-		if(verti(coup) || horiz(coup)){
-			return True;
+	// Cas d'une tour
+	if(plateau[coup.xFrom][coup.yFrom].p == tour){ 
+		if(verti(coup) || horiz(coup)){ // La tour se déplace en vertical ou en horizontal
+			return 1;
 		}
+		return 0;
 	}
+	// Cas d'un cavalier
+	if(verifCavalier(coup)){
+		return 1;
+	}
+	return 0;
+	
+	
 }
