@@ -59,10 +59,31 @@ int verifier_coup(Partie* partie, Coup coup){
 		return 0;
 	}
 	// Cas d'un cavalier
-	if(verifCavalier(coup)){
-		return 1;
+	if(plateau[coup.xFrom][coup.yFrom].p == cavalier){ 
+		if(verifCavalier(coup)){
+			return 1;
+		}
+		return 0;
 	}
-	return 0;
-	
-	
+	// Cas d'un fou
+	if(plateau[coup.xFrom][coup.yFrom].p == four){ 
+		if(diagonal(coup)){ // Le fou se déplace en diagonal uniquement
+			return 1;
+		}
+		return 0;
+	}
+	// Cas d'une reine
+	if(plateau[coup.xFrom][coup.yFrom].p == reine){ 
+		if(diagonal(coup) || verti(coup) || horiz(coup)){ // Les déplacements de la reine combine ceux d'un fou et d'une tour
+			return 1;
+		}
+		return 0;
+	}
+	// Cas d'un roi
+	if(plateau[coup.xFrom][coup.yFrom].p == roi){ 
+		if(diagonal(coup) || verti(coup) || horiz(coup)){ // Le roi se déplace comme une reine mais dont la distance est limitée à 1
+			return 1;
+		}
+		return 0;
+	}
 }
