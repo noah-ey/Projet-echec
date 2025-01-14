@@ -1,4 +1,4 @@
-
+#include "declarations.h"
 
 // fonction qui applique le coup demandé, il faut préalablement tester si le coup est légal et jouable
 void appliquer_coup(Partie* partie,Coup coup){
