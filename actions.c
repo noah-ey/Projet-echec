@@ -1,67 +1,42 @@
 
 
-// programme
-// fonction qui ?
-// verification de la possibilite des demandes (fichier c)
-// mouvement des pieces/prend les pieces si besoin
-// fonction rock
-// situation d'echec
-
-// timer
-// les points des joueur
-// les fonction save (qui permet de revenir en arriere une fois)
-
-// realiser 1000 test pour par exemple si il mets é au lieu de 2 que cela ne fasse pas de la dé
-
-// fonction qui deplace la piece sans condition
-void deplacement(Coup coup){
-    echiquier[xTo][yTo] = echiquier[xFrom][yFrom];
-    echiquier[xFrom][yFrom].p = vide;
-    return;
-}
-// fonctin qui verifie que le mouvement soit vertical
-int verti (Coup coup){
-    if (yFrom == yTo)){
-        printf("mouvement impossible car il n'est pas verti\n");
-        return 1;
-    }
-    return 0;
-}
-// fonctin qui verifie que le mouvement soit horizontal
-int horiz (Coup coup){
-    if ((yFrom == xTo) {
-        printf("mouvement impossible car il n'est pas horiz\n");
-        return 1;
-    }
-    return 0;
-}
-// fonctin qui verifie que le mouvement soit diagonal
-int diagonal (Coup coup){
-    if (xTo - xFrom == yTo - yFrom){  // dans la premiere diagonal
-        return 1;
-    } if (-yTo + xFrom == xTo - yFrom){  // dans la deuxieme diagonal 
-        return 1;
-    } if (yTo + xFrom == xTo + yFrom){  // dans la deuxieme diagonal en bas
-        return 1;
-    }
-    return 0;
-}
-// fonctin qui verifie que le mouvement soit bon pour le cavalier et réalise le déplacement
-int mouvcavalier (Coup coup){
-    if (((abs (coup.xTo - coup.xFrom) == 2) && (abs (coup.yTo - coup.yFrom) == 1) || 
-        (abs (coup.xTo - coup.xFrom) == 2) && (abs (coup.yTo - coup.yFrom) == 1))) && (echiquier[xTo][yTo]==;{
-        return 0;
-    } 
-    printf("Mouvement impossible car cela ne correspond pas au cavalier\n");
-    return 1;
+// fonction qui applique le coup demandé, il faut préalablement tester si le coup est légal et jouable
+void appliquer_coup(Partie* partie,Coup coup){
+	Case** echiquier = partie.echiquier;
+	
+	echiquier[coup.xTo][coup.yTo] = echiquier[coup.xFrom][coup.yFrom];
+    	echiquier[coup.xFrom][coup.yFrom].p = vide;
 }
 
-// fonctin qui verifie que le mouvement soit bon pour la tour et réalise le déplacement
-void mouvtour (Coup coup){
-    if ((abs (coup.xTo - coup.xFrom) == 2) && (abs (coup.yTo - coup.yFrom) == 1) || (abs (coup.xTo - coup.xFrom) == 2) && (abs (coup.yTo - coup.yFrom) == 1)){
-        return;
-    } 
-    printf("Mouvement impossible car cela ne correspond pas à la tour\n");
-    return;
+// fonction qui verifie que le mouvement soit vertical
+int verti(Coup coup){
+	if (coup.yFrom == coup.yTo){
+		return 1;
+	}
+	printf("mouvement impossible car il n'est pas verti\n");
+	return 0;
 }
-
+// fonction qui verifie que le mouvement soit horizontal
+int horiz(Coup coup){
+	if (coup.xFrom == coup.xTo) {
+		return 1;
+	}
+	printf("mouvement impossible car il n'est pas horiz\n");
+    	return 0;
+}
+// fonction qui verifie que le mouvement soit diagonal
+int diagonal(Coup coup){
+	if (abs(coup.xTo - coup.xFrom) == abs(coup.yTo - coup.yFrom)){ //HAHA la valeur absolue suffisait bien mdrr
+		return 1;
+	}
+	printf("mouvement impossible car il n'est pas verti\n");
+	return 0;
+}
+// fonction qui verifie que le mouvement soit bon pour le cavalier
+int verifCavalier(Coup coup){
+	if (((abs (coup.xTo - coup.xFrom) == 2) && (abs (coup.yTo - coup.yFrom) == 1) || (abs (coup.xTo - coup.xFrom) == 2) && (abs (coup.yTo - coup.yFrom) == 1))){ // 2 fois la même condition, je pense qu'il faut changer quelque chose
+		return 1;
+	} 
+	printf("Mouvement impossible car cela ne correspond pas au cavalier\n");
+	return 0;
+}
