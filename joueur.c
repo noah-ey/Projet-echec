@@ -41,7 +41,7 @@ int verifier_proposition(Coup prop){
 
 
 
-// Vérifie que le coup est jouable / légal ?
+// Vérifie que le coup est légal 
 int verifier_coup(Partie* partie, Coup coup){
 	Case** plateau = partie.echiquier;
 	Couleur joueur = partie.joueur_actif;
