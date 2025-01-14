@@ -236,7 +236,7 @@ int verifier_proposition(Case** echiquier,Coup prop){
 		return 0;
 	}
 	if (echiquier[prop.xFrom][prop.yFrom].p == vide) {
-   		printf("La case initiale est vide\n");
+   		printf("La case initiale est vide\n"); // Sera vérifié dans fonction "verifier_coup()"
     		return 0;
 	}
 	printf("Il s'agit d'un coup\n");	
