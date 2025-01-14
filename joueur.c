@@ -44,6 +44,7 @@ int verifier_proposition(Coup prop){
 // Vérifie que le coup est jouable / légal ?
 int verifier_coup(Partie* partie, Coup coup){
 	Case** plateau = partie.echiquier;
+	Couleur joueur = partie.joueur_actif;
 
 	// Analysons quel type de pièce l'utilisateur veut déplacer, afin de vérifier si le coup demandé correspond
 	// Cas d'une case vide
@@ -51,6 +52,27 @@ int verifier_coup(Partie* partie, Coup coup){
 		printf("Veuillez choisir une case contenant une pièce !\n");
 		return 0;
 	}
+	// Cas d'un pion 
+	if(plateau[coup.xFrom][coup.yFrom].p == pion){ 
+		if(abs(coup.yTo - coup.yFrom) == 1){ // Cas le plus courant, le pion avance d'une case horizontale
+			return 1;
+		}
+		if(abs(coup.yTo - coup.yFrom) == 2)){ // Cas plus rare : premier déplacement du pion possible d'avancer de 2 cases horizontales
+			if(coup.xFrom == 1 || coup.xFrom == 6){
+				return 1;
+			}
+		}
+		if(diagonal(coup) && (abs(coup.yTo - coup.yFrom) == 1)){ // Cas où le pion mange une pièce : déplacement diagonale de 1 case
+			if(){ // Le pion mange s'il y a une pièce adverse
+				return 1;
+			}
+		}
+		if(){ // En passant si jamais
+
+		}
+		return 0;
+	}
+	
 	// Cas d'une tour
 	if(plateau[coup.xFrom][coup.yFrom].p == tour){ 
 		if(verti(coup) || horiz(coup)){ // La tour se déplace en vertical ou en horizontal
@@ -81,8 +103,10 @@ int verifier_coup(Partie* partie, Coup coup){
 	}
 	// Cas d'un roi
 	if(plateau[coup.xFrom][coup.yFrom].p == roi){ 
-		if(diagonal(coup) || verti(coup) || horiz(coup)){ // Le roi se déplace comme une reine mais dont la distance est limitée à 1
-			return 1;
+		if(diagonal(coup) || verti(coup) || horiz(coup)){ // Le roi se déplace comme une reine 
+			if((abs(coup.xTo - coup.xFrom) == 1) && (abs(coup.yTo - coup.yFrom) == 1){ // Mais la distance est limitée à 1
+				return 1;
+			}
 		}
 		return 0;
 	}
