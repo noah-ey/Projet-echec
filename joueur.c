@@ -72,9 +72,10 @@ int verifier_coup(Partie* partie, Coup coup){
 				return 1;
 			}
 		}
+		/* 
 		if(){ // En passant si jamais
 
-		}
+		}*/
 		return 0;
 	}
 	
