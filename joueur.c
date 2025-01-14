@@ -4,7 +4,7 @@
 Fichier qui gère les interactions avec les joueurs
 */
 
-// Demande au joueur son coup dans le code généré
+// Fonction demandant au joueur son coup dans le code généré
 Coup proposition_joueur(){
 	int xFrom, yFrom, xTo, yTo;
 		
@@ -17,6 +17,7 @@ Coup proposition_joueur(){
 	Coup res = {xFrom-1, yFrom-1, xTo-1, yTo-1};
 	return (res);
 }
+
 
 // Fonction qui vérifie si 'prop' est un coup correspondant à l'échiquier
 int verifier_proposition(Coup prop){
@@ -44,7 +45,8 @@ int verifier_proposition(Coup prop){
 
 
 
-// Vérifie que le coup est légal 
+/* Fonction vérifiant si le coup est légal 
+Renvoie 1 si le coup est legal, 0 sinon */
 int verifier_coup(Partie* partie, Coup coup){
 	Case** plateau = partie.echiquier;
 	Couleur joueur = partie.joueur_actif;
@@ -115,4 +117,12 @@ int verifier_coup(Partie* partie, Coup coup){
 		}
 		return 0;
 	}
+}
+
+
+
+
+/* Fonction qui gère le déroulement de la partie d'échec */
+void deroulement(Case** echiquier){
+
 }
