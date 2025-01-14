@@ -41,6 +41,7 @@ void afficher_plateau(Case** plateau);
 Coup proposition_joueur();
 int verifier_proposition(Coup prop);
 int verifier_coup(Partie* partie, Coup coup);
+void deroulement(Partie* partie);
 
 void appliquer_coup(Partie* partie, Coup coup);
 int verti(Coup coup);
