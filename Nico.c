@@ -157,7 +157,7 @@ void afficher_plateau(Case** plateau) {
     }
 }
 ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
-// fonction qui deplace la piece sans condition
+// fonction qui applique le coup demandé, il faut préalablement tester si le coup est légal et jouable
 void appliquer_coup(Partie* partie,Coup coup){
 	Case** echiquier = partie.echiquier;
 	
