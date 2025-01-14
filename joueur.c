@@ -52,6 +52,11 @@ int verifier_coup(Partie* partie, Coup coup){
 		printf("Veuillez choisir une case contenant une pièce !\n");
 		return 0;
 	}
+	// Cas d'une pièce adverse
+	if(plateau[coup.xFrom][coup.yFrom].c != joueur){ 
+		printf("Veuillez choisir une pièce de votre couleur !\n");
+		return 0;
+	}
 	// Cas d'un pion 
 	if(plateau[coup.xFrom][coup.yFrom].p == pion){ 
 		if(abs(coup.yTo - coup.yFrom) == 1){ // Cas le plus courant, le pion avance d'une case horizontale
@@ -63,7 +68,7 @@ int verifier_coup(Partie* partie, Coup coup){
 			}
 		}
 		if(diagonal(coup) && (abs(coup.yTo - coup.yFrom) == 1)){ // Cas où le pion mange une pièce : déplacement diagonale de 1 case
-			if(){ // Le pion mange s'il y a une pièce adverse
+			if((plateau[coup.xFrom][coup.yFrom].p != vide) && (plateau[coup.xTo][coup.yTo].c != joueur))){ // Le pion mange s'il y a une pièce adverse
 				return 1;
 			}
 		}
