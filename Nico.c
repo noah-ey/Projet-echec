@@ -158,10 +158,11 @@ void afficher_plateau(Case** plateau) {
 }
 ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
 // fonction qui deplace la piece sans condition
-void appliquer_coup(Case** echiquier,Coup coup){
+void appliquer_coup(Partie* partie,Coup coup){
+	Case** echiquier = partie.echiquier;
+	
 	echiquier[coup.xTo][coup.yTo] = echiquier[coup.xFrom][coup.yFrom];
     	echiquier[coup.xFrom][coup.yFrom].p = vide;
-    	return;
 }
 
 // fonction qui verifie que le mouvement soit vertical
