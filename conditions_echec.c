@@ -5,4 +5,19 @@ Fichier qui regroupe toutes les fonctions gérant les conditions d'échec
   fonction qui bloque le mouvement d'une de mes pieces si elle amenerais un echec de mon roi
 */
 
-int fonction 
+
+// on verif si le mouvement met le roi en echec
+int RoiEnEchec(Partie* partie, Coup coup){
+
+  //on stock les coordonné du tableau avant test
+
+  //on bouge le tableau
+
+  //on trouve le roi
+
+  //on test l'echec pour toute les pieces en utilisant int echec = //true si le roi est en echec apres le mouvement
+
+  //on remet le tableau comme avant
+
+  return echec; //true si le roi est en echec apres le mouvement 
+}
