@@ -48,8 +48,8 @@ int verifier_proposition(Coup prop){
 /* Fonction vérifiant si le coup est légal 
 Renvoie 1 si le coup est legal, 0 sinon */
 int verifier_coup(Partie* partie, Coup coup){
-	Case** plateau = partie.echiquier;
-	Couleur joueur = partie.joueur_actif;
+	Case** plateau = partie->echiquier;
+	Couleur joueur = partie->joueur_actif;
 
 	// Analysons quel type de pièce l'utilisateur veut déplacer, afin de vérifier si le coup demandé correspond
 	// Cas d'une case vide
@@ -122,18 +122,18 @@ int verifier_coup(Partie* partie, Coup coup){
 
 /* Fonction qui gère le temps disponible à chaque joueur */
 void timer(clock_t start, clock_t end, Partie* partie){
-	if(partie.joueur_actif == blanc){
-		partie.Blanc.time -= ((double) end - start) / CLOCKS_PER_SEC;
+	if(partie->joueur_actif == blanc){
+		partie->Blanc.time -= ((double) end - start) / CLOCKS_PER_SEC;
 	}
 	else{
-		partie.Noir.time -= ((double) end - start) / CLOCKS_PER_SEC;
+		partie->Noir.time -= ((double) end - start) / CLOCKS_PER_SEC;
 	}
 }
 
 /* Fonction qui gère le déroulement de la partie d'échec */
 void deroulement(Partie* partie){
-	Case** plateau = partie.echiquier;
-	Couleur joueur_actif = partie.joueur_actif;
+	Case** plateau = partie->echiquier;
+	Couleur joueur_actif = partie->joueur_actif;
 	int win = 0;
 
 	while(!win || joueur_actif.time <= 0){
