@@ -28,8 +28,8 @@ char* couleur_piece(Couleur c) {
 Fonction pour allouer et initialiser l'échiquier
 Initialise également les variables nécessaires de partie
 */
-Case** creer_partie() {
-    Partie partie;
+Partie* creer_partie() {
+    Partie* partie;
 
     // On alloue l'échiquier 8x8
     Case** echiquier = (Case**)malloc(NB_LIGNE * sizeof(Case*));
@@ -71,14 +71,14 @@ Case** creer_partie() {
         echiquier[7][j].p = ordre_pieces[j];
         echiquier[7][j].c = blanc;
     }
-    partie.echiquier = echiquier;
+    partie->echiquier = echiquier;
 
-    partie.joueur_actif = blanc; // Le blanc commencera
-    partie.Blanc.time = GAME_TIME;
-    partie.Blanc.score = 0;
+    partie->joueur_actif = blanc; // Le blanc commencera
+    partie->Blanc.time = GAME_TIME;
+    partie->Blanc.score = 0;
 
-    partie.Noir.time = GAME_TIME;
-    partie.Noir.score = 0;
+    partie->Noir.time = GAME_TIME;
+    partie->Noir.score = 0;
 
     return partie;
 }
