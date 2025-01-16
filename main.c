@@ -4,19 +4,19 @@
 #include "declarations.h"
 
 int main() {
-    Case** plateau = creer_plateau();
+    Partie partie = creer_partie();
     
-    afficher_plateau(plateau);
+    afficher_plateau(partie.echiquier);
     
     Coup coup = proposition_joueur();
     
     int verif = verifier_proposition(coup);
 
-    deplacement(plateau, coup);
+    deplacement(partie.echiquier, coup);
 
     
     
     
-    liberer_plateau(plateau);
+    liberer_plateau(partie.echiquier);
     return 0;
 }
