@@ -43,7 +43,7 @@ typedef struct partie {
 
 
 //Définitons de toutes les fonctions
-Case **creer_partie();
+Partie* creer_partie();
 void liberer_plateau(Case **plateau);
 char aff_char(Case case_jeu);
 char* couleur_piece(Couleur c);
