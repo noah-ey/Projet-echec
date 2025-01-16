@@ -12,7 +12,7 @@ int main() {
     
     int verif = verifier_proposition(coup);
 
-    deplacement(partie.echiquier, coup);
+    appliquer_coup(partie.echiquier, coup);
 
     
     
