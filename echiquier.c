@@ -24,8 +24,13 @@ char* couleur_piece(Couleur c) {
     return (c == blanc) ? "\033[32m" : "\033[31m";  // Vert pour blanc, Rouge pour noir
 }
 
-// Fonction pour allouer et initialiser l'échiquier
-Case** creer_plateau() {
+/* 
+Fonction pour allouer et initialiser l'échiquier
+Initialise également les variables nécessaires de partie
+*/
+Case** creer_partie() {
+    Partie partie;
+
     // On alloue l'échiquier 8x8
     Case** echiquier = (Case**)malloc(NB_LIGNE * sizeof(Case*));
     if (echiquier == NULL) {
@@ -66,8 +71,16 @@ Case** creer_plateau() {
         echiquier[7][j].p = ordre_pieces[j];
         echiquier[7][j].c = blanc;
     }
+    partie.echiquier = echiquier;
 
-    return echiquier;
+    partie.joueur_actif = blanc; // Le blanc commencera
+    partie.Blanc.time = GAME_TIME;
+    partie.Blanc.score = 0;
+
+    partie.Noir.time = GAME_TIME;
+    partie.Noir.score = 0;
+
+    return partie;
 }
 
 

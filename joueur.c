@@ -67,13 +67,13 @@ int verifier_coup(Partie* partie, Coup coup){
 		if(abs(coup.yTo - coup.yFrom) == 1){ // Cas le plus courant, le pion avance d'une case horizontale
 			return 1;
 		}
-		if(abs(coup.yTo - coup.yFrom) == 2)){ // Cas plus rare : premier déplacement du pion possible d'avancer de 2 cases horizontales
+		if(abs(coup.yTo - coup.yFrom) == 2){ // Cas plus rare : premier déplacement du pion possible d'avancer de 2 cases horizontales
 			if(coup.xFrom == 1 || coup.xFrom == 6){
 				return 1;
 			}
 		}
 		if(diagonal(coup) && (abs(coup.yTo - coup.yFrom) == 1)){ // Cas où le pion mange une pièce : déplacement diagonale de 1 case
-			if((plateau[coup.xFrom][coup.yFrom].p != vide) && (plateau[coup.xTo][coup.yTo].c != joueur))){ // Le pion mange s'il y a une pièce adverse
+			if((plateau[coup.xFrom][coup.yFrom].p != vide) && (plateau[coup.xTo][coup.yTo].c != joueur)){ // Le pion mange s'il y a une pièce adverse
 				return 1;
 			}
 		}
@@ -111,7 +111,7 @@ int verifier_coup(Partie* partie, Coup coup){
 	// Cas d'un roi
 	if(plateau[coup.xFrom][coup.yFrom].p == roi){ 
 		if(diagonal(coup) || verti(coup) || horiz(coup)){ // Le roi se déplace comme une reine 
-			if((abs(coup.xTo - coup.xFrom) == 1) && (abs(coup.yTo - coup.yFrom) == 1){ // Mais la distance est limitée à 1
+			if((abs(coup.xTo - coup.xFrom) == 1) && (abs(coup.yTo - coup.yFrom) == 1)){ // Mais la distance est limitée à 1
 				return 1;
 			}
 		}
@@ -120,9 +120,40 @@ int verifier_coup(Partie* partie, Coup coup){
 }
 
 
-
+/* Fonction qui gère le temps disponible à chaque joueur */
+void timer(clock_t start, clock_t end, Partie* partie){
+	if(partie.joueur_actif == blanc){
+		partie.Blanc.time -= ((double) end - start) / CLOCKS_PER_SEC;
+	}
+	else{
+		partie.Noir.time -= ((double) end - start) / CLOCKS_PER_SEC;
+	}
+}
 
 /* Fonction qui gère le déroulement de la partie d'échec */
-void deroulement(Case** echiquier){
+void deroulement(Partie* partie){
+	Case** plateau = partie.echiquier;
+	Couleur joueur_actif = partie.joueur_actif;
+	int win = 0;
 
+	while(!win || joueur_actif.time <= 0){
+		printf("Tour du joueur %s", joueur_actif);
+		afficher_plateau(plateau);
+		printf("Joueur : %s il vous reste %f secondes", joueur_actif, joueur_actif.time);
+		clock_t start = clock();
+		Coup coup = proposition_joueur(); // On demande au joueur actif quel coup il veut jouer
+		if(verifier_proposition(coup)){ // Verification si la proposition est traitable 
+			if(verifier_coup(coup)){ // Verification si le coup est jouable
+				appliquer_coup(partie, coup);
+				clock_t end = clock();
+				timer(start, end, partie); // On met à jour le temps restant du joueur actif
+				printf("Joueur : %s il vous reste %f secondes", joueur_actif, joueur_actif.time);
+				if(joueur_actif == blanc) // Changement du joueur actif une fois le coup appliqué
+					joueur_actif++;
+				else
+					joueur_actif--;
+			}
+		}
+		win = 1;
+	}
 }
