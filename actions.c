@@ -7,7 +7,7 @@ Fichier qui gère les mouvements des pièces
 
 // fonction qui applique le coup demandé, il faut préalablement tester si le coup est légal et jouable
 void appliquer_coup(Partie* partie,Coup coup){
-	Case** echiquier = partie.echiquier;
+	Case** echiquier = partie->echiquier;
 	
 	echiquier[coup.xTo][coup.yTo] = echiquier[coup.xFrom][coup.yFrom];
     	echiquier[coup.xFrom][coup.yFrom].p = vide;
