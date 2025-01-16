@@ -42,8 +42,11 @@ int RoiEnEchec(Partie* partie, Coup coup){
 int risquePourRoi(Partie* partie, int roiX, int roiY){
   for(int i = 0; i < NB_LIGNE; i++){
     for(int j = 0; j < NB_LIGNE; j++){
-      if(){ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo  pas fin ici
-        return 1; // risque pour le roi
+      if(partie->echiquier[i][j].c == !joueur_actif){
+                Coup coup_potentiel = {x, y, roiX, roiY};
+                if(verifier_coup(partie, coup_potentiel)){
+                    return 1; // risque pour le roi
+                }
       }
     }
   }
