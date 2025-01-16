@@ -95,7 +95,7 @@ int verifier_coup(Partie* partie, Coup coup){
 		return 0;
 	}
 	// Cas d'un fou
-	if(plateau[coup.xFrom][coup.yFrom].p == four){ 
+	if(plateau[coup.xFrom][coup.yFrom].p == fou){ 
 		if(diagonal(coup)){ // Le fou se déplace en diagonal uniquement
 			return 1;
 		}
