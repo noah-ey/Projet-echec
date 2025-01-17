@@ -1,7 +1,8 @@
 #include "declarations.h"
-/*
+
+/* ***********************************
 Fichier qui gère les mouvements des pièces
-*/
+******************************************** */
 
 
 
@@ -31,17 +32,18 @@ int horiz(Coup coup){
 }
 // fonction qui verifie que le mouvement soit diagonal
 int diagonal(Coup coup){
-	if (abs(coup.xTo - coup.xFrom) == abs(coup.yTo - coup.yFrom)){ //HAHA la valeur absolue suffisait bien mdrr
+	if (abs(coup.xTo - coup.xFrom) == abs(coup.yTo - coup.yFrom)){
 		return 1;
 	}
-	printf("mouvement impossible car il n'est pas verti\n");
+	printf("mouvement impossible car il n'est pas diagonal\n");
 	return 0;
 }
 // fonction qui verifie que le mouvement soit bon pour le cavalier
 int verifCavalier(Coup coup){
-	if (((abs (coup.xTo - coup.xFrom) == 2) && (abs (coup.yTo - coup.yFrom) == 1) || (abs (coup.xTo - coup.xFrom) == 2) && (abs (coup.yTo - coup.yFrom) == 1))){ // 2 fois la même condition, je pense qu'il faut changer quelque chose
+	if ((((abs (coup.xTo - coup.xFrom) == 2) && (abs (coup.yTo - coup.yFrom) == 1)) || ((abs (coup.xTo - coup.xFrom) == 2) && (abs (coup.yTo - coup.yFrom) == 1)))){ // 2 fois la même condition, je pense qu'il faut changer quelque chose
 		return 1;
 	} 
 	printf("Mouvement impossible car cela ne correspond pas au cavalier\n");
 	return 0;
 }
+
