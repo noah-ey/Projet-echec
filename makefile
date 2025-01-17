@@ -13,7 +13,7 @@ joueur.o : joueur.c declarations.h
 action.o : action.c declarations.h
 	gcc -c action.c
 
-conditions_echec.o : conditions_echec.o declarations.h
+conditions_echec.o : conditions_echec.c declarations.h
 	gcc -c conditions_echec.c
 
 clean :
