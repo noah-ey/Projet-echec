@@ -205,7 +205,7 @@ void afficher_plateau(Partie* partie){
         printf("\n");
     }
      // Affiche les lettres sous les cases
-    printf("  A     B     C     D     E     F     G   ");
+    printf("   A     B     C     D     E     F     G");
     
     printf("\n");
 }
