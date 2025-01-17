@@ -168,8 +168,8 @@ void afficher_plateau(Partie* partie){
     Case** plateau = partie->echiquier;
 
     for (int i = 0; i < NB_LIGNE; i++) {
-        for (int j = 0; j < NB_LIGNE; j++) {
-		printf("   ");
+	    printf(" ");
+        for (int j = 0; j < NB_LIGNE; j++){
             if ((i + j) % 2 == 0) {
                 // Case sombre : bleu foncé
                 printf("\033[48;5;17m     \033[0m");
@@ -181,6 +181,7 @@ void afficher_plateau(Partie* partie){
         printf("\n");
         // affiche les chiffres sur chaque ligne
         printf(" %d ", 1 + i);
+	printf(" ");
 
         // Afficher les pièces sur chaque case
         for (int j = 0; j < NB_LIGNE; j++) {
