@@ -179,7 +179,7 @@ void afficher_plateau(Partie* partie){
         }
         printf("\n");
         // affiche les chiffres sur chaque ligne
-        printf(" %d ", 8 - i);
+        printf(" %d ", 1 + i);
 
         // Afficher les pièces sur chaque case
         for (int j = 0; j < NB_LIGNE; j++) {
@@ -205,13 +205,7 @@ void afficher_plateau(Partie* partie){
         printf("\n");
     }
      // Affiche les lettres sous les cases
-    printf("  a   ");
-    printf("  b   ");
-    printf("  c   ");
-    printf("  d   ");
-    printf("  e   ");
-    printf("  f   ");
-    printf("  g   ");
+    printf("  A     B     C     D     E     F     G   ");
     
     printf("\n");
 }
