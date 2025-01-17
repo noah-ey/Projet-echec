@@ -212,7 +212,6 @@ void afficher_plateau(Partie* partie){
     printf("\n");
 }
 
-
 /* ***********************************
 Fichier qui gère les mouvements des pièces
 ******************************************** */
@@ -248,7 +247,7 @@ int diagonal(Coup coup){
 	if (abs(coup.xTo - coup.xFrom) == abs(coup.yTo - coup.yFrom)){
 		return 1;
 	}
-	printf("mouvement impossible car il n'est pas verti\n");
+	printf("mouvement impossible car il n'est pas diagonal\n");
 	return 0;
 }
 // fonction qui verifie que le mouvement soit bon pour le cavalier
@@ -326,10 +325,10 @@ int verifier_coup(Partie* partie, Coup coup){
 	}
 	// Cas d'un pion 
 	if(plateau[coup.xFrom][coup.yFrom].p == pion){ 
-		if(abs(coup.yTo - coup.yFrom) == 1){ // Cas le plus courant, le pion avance d'une case horizontale
+		if(abs(coup.xTo - coup.xFrom) == 1){ // Cas le plus courant, le pion avance d'une case horizontale
 			return 1;
 		}
-		if(abs(coup.yTo - coup.yFrom) == 2){ // Cas plus rare : premier déplacement du pion possible d'avancer de 2 cases horizontales
+		if(abs(coup.xTo - coup.xFrom) == 2){ // Cas plus rare : premier déplacement du pion possible d'avancer de 2 cases horizontales
 			if(coup.xFrom == 1 || coup.xFrom == 6){
 				return 1;
 			}
@@ -401,61 +400,49 @@ void points(Partie* partie, Couleur joueur, Coup coup){
     int y = coup.yTo;
     Piece piece = partie->echiquier[x][y].p;
     if(joueur == blanc){
-        if(piece == vide){
-            break;
-        }
         if(piece == pion){
             partie->Blanc.score += 1;
-            break;
         }
-        if(piece == tour){
+        else if(piece == tour){
             partie->Blanc.score += 5;
-            break;
         }
-        if(piece == cavalier){
+        else if(piece == cavalier){
             partie->Blanc.score += 3;
-            break;
         }
-        if(piece == fou){
+        else if(piece == fou){
             partie->Blanc.score += 3;
-            break;
         }
-        if(piece == reine){
+        else if(piece == reine){
             partie->Blanc.score += 9;
-            break;
         }
-        if(piece == roi){
+        else if(piece == roi){
             partie->Blanc.score += 1000; // Permettra de détecter qu'on a mangé le roi et donc de finir la partie
-            break;
         }
     }
     else{
-        if(piece == vide){
-            break;
-        }
         if(piece == pion){
             partie->Noir.score += 1;
-            break;
+        
         }
-        if(piece == tour){
+        else if(piece == tour){
             partie->Noir.score += 5;
-            break;
+        
         }
-        if(piece == cavalier){
+        else if(piece == cavalier){
             partie->Noir.score += 3;
-            break;
+        
         }
-        if(piece == fou){
+        else if(piece == fou){
             partie->Noir.score += 3;
-            break;
+        
         }
-        if(piece == reine){
+        else if(piece == reine){
             partie->Noir.score += 9;
-            break;
+        
         }
-        if(piece == roi){
+        else if(piece == roi){
             partie->Noir.score += 1000; // Permettra de détecter qu'on a mangé le roi et donc de finir la partie
-            break;
+        
         }
     }
 }
