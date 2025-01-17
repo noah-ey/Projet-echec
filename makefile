@@ -1,5 +1,5 @@
-echec : main.o echiquier.o joueur.o action.o
-	gcc main.o echiquier.o joueur.o action.o -o echec
+echec : main.o echiquier.o joueur.o action.o conditions_echec.o
+	gcc main.o echiquier.o joueur.o action.o conditions_echec.o -o echec
 
 main.o : main.c declarations.h
 	gcc -c main.c
@@ -12,6 +12,9 @@ joueur.o : joueur.c declarations.h
 
 action.o : action.c declarations.h
 	gcc -c action.c
+
+conditions_echec.o : conditions_echec.o declarations.h
+	gcc -c conditions_echec.c
 
 clean :
 	rm -f *.o echec
