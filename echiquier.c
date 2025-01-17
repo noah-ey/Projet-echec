@@ -24,13 +24,8 @@ char* couleur_piece(Couleur c) {
     return (c == blanc) ? "\033[32m" : "\033[31m";  // Vert pour blanc, Rouge pour noir
 }
 
-/* 
-Fonction pour allouer et initialiser l'échiquier
-Initialise également les variables nécessaires de partie
-*/
-Partie* creer_partie() {
-    Partie* partie;
-
+/* Fonction pour allouer et initialiser l'échiquier */
+Case** creer_plateau(){
     // On alloue l'échiquier 8x8
     Case** echiquier = (Case**)malloc(NB_LIGNE * sizeof(Case*));
     if (echiquier == NULL) {
@@ -71,14 +66,21 @@ Partie* creer_partie() {
         echiquier[7][j].p = ordre_pieces[j];
         echiquier[7][j].c = blanc;
     }
-    partie->echiquier = echiquier;
+    return echiquier;
+}
 
-    partie->joueur_actif = blanc; // Le blanc commencera
-    partie->Blanc.time = GAME_TIME;
-    partie->Blanc.score = 0;
+/* Fonction pour initialiser la partie et ses variables */
+Partie creer_partie() {
+    Partie partie;
 
-    partie->Noir.time = GAME_TIME;
-    partie->Noir.score = 0;
+    partie.echiquier = creer_plateau();
+
+    partie.joueur_actif = blanc; // Le blanc commencera
+    partie.Blanc.time = GAME_TIME;
+    partie.Blanc.score = 0;
+
+    partie.Noir.time = GAME_TIME;
+    partie.Noir.score = 0;
 
     return partie;
 }
@@ -86,7 +88,8 @@ Partie* creer_partie() {
 
 
 // Fonction pour libérer l'échiquier
-void liberer_plateau(Case **plateau){
+void liberer_plateau(Partie partie){
+    Case **plateau = partie.echiquier;
     for (int i = 0; i < NB_LIGNE; i++) {
             free(plateau[i]);
         }
@@ -94,9 +97,12 @@ void liberer_plateau(Case **plateau){
 }
 
 // Fonction pour afficher l'échiquier avec des couleurs de fond
-void afficher_plateau(Case** plateau) {
+void afficher_plateau(Partie* partie){
+    Case** plateau = partie->echiquier;
+
     for (int i = 0; i < NB_LIGNE; i++) {
-        for (int j = 0; j < NB_LIGNE; j++) {
+	    printf(" ");
+        for (int j = 0; j < NB_LIGNE; j++){
             if ((i + j) % 2 == 0) {
                 // Case sombre : bleu foncé
                 printf("\033[48;5;17m     \033[0m");
@@ -107,7 +113,8 @@ void afficher_plateau(Case** plateau) {
         }
         printf("\n");
         // affiche les chiffres sur chaque ligne
-        printf(" %d ", 8 - i);
+        printf(" %d ", 1 + i);
+	printf(" ");
 
         // Afficher les pièces sur chaque case
         for (int j = 0; j < NB_LIGNE; j++) {
@@ -133,14 +140,7 @@ void afficher_plateau(Case** plateau) {
         printf("\n");
     }
      // Affiche les lettres sous les cases
-    printf("  a   ");
-    printf("  b   ");
-    printf("  c   ");
-    printf("  d   ");
-    printf("  e   ");
-    printf("  f   ");
-    printf("  g   ");
+    printf("   A     B     C     D     E     F    G");
     
     printf("\n");
 }
-
