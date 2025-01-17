@@ -169,6 +169,7 @@ void afficher_plateau(Partie* partie){
 
     for (int i = 0; i < NB_LIGNE; i++) {
         for (int j = 0; j < NB_LIGNE; j++) {
+		printf("   ");
             if ((i + j) % 2 == 0) {
                 // Case sombre : bleu foncé
                 printf("\033[48;5;17m     \033[0m");
@@ -205,7 +206,7 @@ void afficher_plateau(Partie* partie){
         printf("\n");
     }
      // Affiche les lettres sous les cases
-    printf("   A     B     C     D     E     F     G");
+    printf("   A     B     C     D     E     F    G");
     
     printf("\n");
 }
