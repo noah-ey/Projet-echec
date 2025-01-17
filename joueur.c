@@ -1,8 +1,8 @@
 #include "declarations.h"
 
-/*
+/* ***********************************************
 Fichier qui gère les interactions avec les joueurs
-*/
+************************************************* */
 
 // Fonction demandant au joueur son coup dans le code généré
 Coup proposition_joueur(){
@@ -64,10 +64,10 @@ int verifier_coup(Partie* partie, Coup coup){
 	}
 	// Cas d'un pion 
 	if(plateau[coup.xFrom][coup.yFrom].p == pion){ 
-		if(abs(coup.yTo - coup.yFrom) == 1){ // Cas le plus courant, le pion avance d'une case horizontale
+		if(abs(coup.xTo - coup.xFrom) == 1){ // Cas le plus courant, le pion avance d'une case horizontale
 			return 1;
 		}
-		if(abs(coup.yTo - coup.yFrom) == 2){ // Cas plus rare : premier déplacement du pion possible d'avancer de 2 cases horizontales
+		if(abs(coup.xTo - coup.xFrom) == 2){ // Cas plus rare : premier déplacement du pion possible d'avancer de 2 cases horizontales
 			if(coup.xFrom == 1 || coup.xFrom == 6){
 				return 1;
 			}
@@ -117,6 +117,8 @@ int verifier_coup(Partie* partie, Coup coup){
 		}
 		return 0;
 	}
+    printf("Veuillez choisir une pièce");
+    return 0;
 }
 
 
@@ -130,30 +132,105 @@ void timer(clock_t start, clock_t end, Partie* partie){
 	}
 }
 
+/* Fonction compte les points des joueurs 
+Le coup donné en arguement aura été préalablement vérifié */
+void points(Partie* partie, Couleur joueur, Coup coup){
+    int x = coup.xTo; // On s'intéresse uniquement aux coordonnées d'arrivée
+    int y = coup.yTo;
+    Piece piece = partie->echiquier[x][y].p;
+    if(joueur == blanc){
+        if(piece == pion){
+            partie->Blanc.score += 1;
+        }
+        else if(piece == tour){
+            partie->Blanc.score += 5;
+        }
+        else if(piece == cavalier){
+            partie->Blanc.score += 3;
+        }
+        else if(piece == fou){
+            partie->Blanc.score += 3;
+        }
+        else if(piece == reine){
+            partie->Blanc.score += 9;
+        }
+        else if(piece == roi){
+            partie->Blanc.score += 1000; // Permettra de détecter qu'on a mangé le roi et donc de finir la partie
+        }
+    }
+    else{
+        if(piece == pion){
+            partie->Noir.score += 1;
+        
+        }
+        else if(piece == tour){
+            partie->Noir.score += 5;
+        
+        }
+        else if(piece == cavalier){
+            partie->Noir.score += 3;
+        
+        }
+        else if(piece == fou){
+            partie->Noir.score += 3;
+        
+        }
+        else if(piece == reine){
+            partie->Noir.score += 9;
+        
+        }
+        else if(piece == roi){
+            partie->Noir.score += 1000; // Permettra de détecter qu'on a mangé le roi et donc de finir la partie
+        
+        }
+    }
+}
+
 /* Fonction qui gère le déroulement de la partie d'échec */
 void deroulement(Partie* partie){
-	Case** plateau = partie->echiquier;
+	//Case** plateau = partie->echiquier;
 	Couleur joueur_actif = partie->joueur_actif;
 	int win = 0;
 
-	while(!win || joueur_actif.time <= 0){
-		printf("Tour du joueur %s", joueur_actif);
-		afficher_plateau(plateau);
-		printf("Joueur : %s il vous reste %f secondes", joueur_actif, joueur_actif.time);
-		clock_t start = clock();
-		Coup coup = proposition_joueur(); // On demande au joueur actif quel coup il veut jouer
-		if(verifier_proposition(coup)){ // Verification si la proposition est traitable 
-			if(verifier_coup(coup)){ // Verification si le coup est jouable
-				appliquer_coup(partie, coup);
-				clock_t end = clock();
-				timer(start, end, partie); // On met à jour le temps restant du joueur actif
-				printf("Joueur : %s il vous reste %f secondes", joueur_actif, joueur_actif.time);
-				if(joueur_actif == blanc) // Changement du joueur actif une fois le coup appliqué
-					joueur_actif++;
-				else
-					joueur_actif--;
-			}
-		}
-		win = 1;
+	while(!win || partie->Blanc.time <= 0 || partie->Noir.time <= 0){
+        if(joueur_actif == blanc){ // Cas joueur Blanc / On sépare les deux cas pour accéder à partie->Blanc.time
+            printf("Tour du joueur blanc\n");
+
+            afficher_plateau(partie);
+            printf("Joueur blanc il vous reste %f secondes\n", partie->Blanc.time);
+            clock_t start = clock();
+            Coup coup = proposition_joueur(); // On demande au joueur actif quel coup il veut jouer
+            if(verifier_proposition(coup)){ // Verification si la proposition est traitable 
+                if(verifier_coup(partie, coup)){ // Verification si le coup est jouable
+                    points(partie, blanc, coup);
+                    appliquer_coup(partie, coup);
+                    clock_t end = clock();
+                    timer(start, end, partie); // On met à jour le temps restant du joueur actif
+                    printf("Joueur blanc il vous reste %f secondes\n",partie->Blanc.time);
+                    joueur_actif = noir;  // Changement du joueur actif une fois le coup appliqué
+                }
+            }
+        }
+        else{ // Cas joueur Noir
+            printf("Tour du joueur noir\n");
+
+            afficher_plateau(partie);
+            printf("Joueur noir il vous reste %f secondes\n", partie->Noir.time);
+            clock_t start = clock();
+            Coup coup = proposition_joueur(); // On demande au joueur actif quel coup il veut jouer
+            if(verifier_proposition(coup)){ // Verification si la proposition est traitable 
+                if(verifier_coup(partie, coup)){ // Verification si le coup est jouable
+                    points(partie, noir, coup);
+                    appliquer_coup(partie, coup);
+                    clock_t end = clock();
+                    timer(start, end, partie); // On met à jour le temps restant du joueur actif
+                    printf("Joueur noir il vous reste %f secondes\n", partie->Noir.time);
+                    joueur_actif = blanc;  // Changement du joueur actif une fois le coup appliqué
+                }
+            }
+        }
+        if(partie->Blanc.score > 1000 || partie->Noir.score > 1000) // Condition qui permet de remarquer que le roi a été mangé
+		    win = 1;
 	}
 }
+
