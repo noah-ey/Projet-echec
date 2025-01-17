@@ -267,6 +267,7 @@ Fichier qui gère les interactions avec les joueurs
 
 // Fonction demandant au joueur son coup dans le code généré
 Coup proposition_joueur(){
+	/*
 	int xFrom, yFrom, xTo, yTo;
 		
 	printf("Quel coup allez vous jouer ?\n");
@@ -274,8 +275,20 @@ Coup proposition_joueur(){
 	printf("yFrom : "); scanf("%d", &yFrom);
 	printf("xTo : "); scanf("%d", &xTo);
 	printf("yTo : "); scanf("%d", &yTo);
-	
+
 	Coup res = {xFrom-1, yFrom-1, xTo-1, yTo-1};
+	*/
+
+	int xFrom, xTo;
+	char colI, colF;
+	printf("Position initiale : "); 
+	scanf("%c", &colI);
+	scanf("%d", &xFrom);
+	printf("Position Finale : "); 
+	scanf("%c", &colF);
+	scanf("%d", &xTo);
+	
+	Coup res = {xFrom-1, colI-'A', xTo-1, colF-'A'};
 	return (res);
 }
 
