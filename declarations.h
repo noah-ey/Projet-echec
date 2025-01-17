@@ -28,7 +28,6 @@ typedef struct coup {
     int yTo;
 } Coup;
 typedef struct joueur{
-    Couleur c;
     double time;
     int score;
 } Joueur;
@@ -43,16 +42,19 @@ typedef struct partie {
 
 
 //Définitons de toutes les fonctions
-Partie* creer_partie();
-void liberer_plateau(Case **plateau);
+Case** creer_plateau();
+Partie creer_partie();
+void liberer_plateau(Partie partie);
 char aff_char(Case case_jeu);
 char* couleur_piece(Couleur c);
-void afficher_plateau(Case** plateau);
+void afficher_plateau(Partie* partie);
 
 Coup proposition_joueur();
 int verifier_proposition(Coup prop);
 int verifier_coup(Partie* partie, Coup coup);
-void deroulement(Case** echiquier);
+void timer(clock_t start, clock_t end, Partie* partie);
+void points(Partie* partie, Couleur joueur, Coup coup);
+void deroulement(Partie* partie);
 
 void appliquer_coup(Partie* partie, Coup coup);
 int verti(Coup coup);
@@ -60,4 +62,5 @@ int horiz(Coup coup);
 int diagonal(Coup coup);
 int verifCavalier(Coup coup);
 
-
+int RoiEnEchec(Partie* partie, Coup coup);
+int risquePourRoi(Partie* partie, int roiX, int roiY);
