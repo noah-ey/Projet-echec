@@ -4,22 +4,33 @@
 Fichier qui gère les interactions avec les joueurs
 ************************************************* */
 
-// Fonction demandant au joueur son coup dans le code généré
-Coup proposition_joueur(){
-	int xFrom, yFrom, xTo, yTo;
-		
+/* Fonction qui permet de savoir le coup du joueur */
+Coup proposition_joueur(Coup coup){
 	printf("Quel coup allez vous jouer ?\n");
-	printf("xFrom : "); scanf("%d", &xFrom);
-	printf("yFrom : "); scanf("%d", &yFrom);
-	printf("xTo : "); scanf("%d", &xTo);
-	printf("yTo : "); scanf("%d", &yTo);
+
+	int xFrom, xTo;
+	char posI, posF;
+	Coup res;
 	
-	Coup res = {xFrom-1, yFrom-1, xTo-1, yTo-1};
+	printf("Case de départ : "); 
+	scanf("%c%d", &posI, &xFrom);
+	while (getchar() != '\n'); // Pour clear le buffer
+	
+	printf("Case d'arrivée : "); 
+	scanf("%c%d", &posF, &xTo); 
+	while (getchar() != '\n'); // Pour clear le buffer
+
+	// Conversion des coordonnées
+    res.xFrom = xFrom - 1;
+    res.yFrom = posI - 'A';
+    res.xTo = xTo - 1;
+    res.yTo = posF - 'A';
+	
 	return (res);
 }
 
 
-// Fonction qui vérifie si 'prop' est un coup correspondant à l'échiquier
+/* Fonction qui vérifie si 'prop' est un coup correspondant à l'échiquier */
 int verifier_proposition(Coup prop){
 	
 	if(prop.xFrom >= NB_LIGNE || prop.xFrom < 0){
@@ -38,8 +49,7 @@ int verifier_proposition(Coup prop){
 		printf("Attention il ne s'agit pas d'un coup\n");
 		return 0;
 	}
-	
-	printf("Il s'agit d'un coup\n");	
+		
 	return 1; // Si on atteind cette ligne alors la proposition est un coup
 }
 
@@ -68,7 +78,7 @@ int verifier_coup(Partie* partie, Coup coup){
 			return 1;
 		}
 		if(abs(coup.xTo - coup.xFrom) == 2){ // Cas plus rare : premier déplacement du pion possible d'avancer de 2 cases horizontales
-			if(coup.xFrom == 1 || coup.xFrom == 6){
+			if((coup.xFrom == 1 && joueur == noir) || (coup.xFrom == 6 && joueur == blanc)){
 				return 1;
 			}
 		}
@@ -188,49 +198,91 @@ void points(Partie* partie, Couleur joueur, Coup coup){
 
 /* Fonction qui gère le déroulement de la partie d'échec */
 void deroulement(Partie* partie){
-	//Case** plateau = partie->echiquier;
 	Couleur joueur_actif = partie->joueur_actif;
 	int win = 0;
+	int est_echec = 0;
 
-	while(!win || partie->Blanc.time <= 0 || partie->Noir.time <= 0){
+	while(!win && partie->Blanc.time > 0 && partie->Noir.time > 0){
         if(joueur_actif == blanc){ // Cas joueur Blanc / On sépare les deux cas pour accéder à partie->Blanc.time
-            printf("Tour du joueur blanc\n");
-
-            afficher_plateau(partie);
+            printf("\nScore Blanc : %d / Noir : %d\n", partie->Blanc.score, partie->Noir.score);
+			afficher_plateau(partie);
+			printf("Tour du joueur blanc\n");
             printf("Joueur blanc il vous reste %f secondes\n", partie->Blanc.time);
             clock_t start = clock();
-            Coup coup = proposition_joueur(); // On demande au joueur actif quel coup il veut jouer
+
+            Coup coup = proposition_joueur(coup); // On demande au joueur actif quel coup il veut jouer
             if(verifier_proposition(coup)){ // Verification si la proposition est traitable 
-                if(verifier_coup(partie, coup)){ // Verification si le coup est jouable
-                    points(partie, blanc, coup);
-                    appliquer_coup(partie, coup);
+                if(verifier_coup(partie, coup)){ 
+					                 
+					points(partie, blanc, coup);
+					est_echec = RoiEnEchec(partie, coup);
+					
+                    appliquer_coup(partie, coup); // Réalise la promotion du pion s'il peut en faire une
                     clock_t end = clock();
                     timer(start, end, partie); // On met à jour le temps restant du joueur actif
                     printf("Joueur blanc il vous reste %f secondes\n",partie->Blanc.time);
-                    joueur_actif = noir;  // Changement du joueur actif une fois le coup appliqué
+
+					if(est_echec){
+						printf("Le roi Noir est en echec !\n");
+						est_echec = 0;
+					}
+
+                    joueur_actif = (joueur_actif == blanc) ? noir : blanc;  // Changement du joueur actif une fois le coup appliqué
+					partie->joueur_actif = joueur_actif;
+					printf("Changement de joueur : joueur_actif = %d\n", joueur_actif);
                 }
             }
         }
         else{ // Cas joueur Noir
-            printf("Tour du joueur noir\n");
-
+			printf("\nScore Blanc : %d / Noir : %d\n", partie->Blanc.score, partie->Noir.score);
             afficher_plateau(partie);
+			printf("Tour du joueur noir\n");
             printf("Joueur noir il vous reste %f secondes\n", partie->Noir.time);
             clock_t start = clock();
-            Coup coup = proposition_joueur(); // On demande au joueur actif quel coup il veut jouer
+            Coup coup = proposition_joueur(coup); // On demande au joueur actif quel coup il veut jouer
             if(verifier_proposition(coup)){ // Verification si la proposition est traitable 
+				printf("Proposition invalide, veuillez réessayer.\n");
                 if(verifier_coup(partie, coup)){ // Verification si le coup est jouable
+					printf("Coup non valide, veuillez réessayer.\n");
                     points(partie, noir, coup);
+					est_echec = RoiEnEchec(partie, coup);
                     appliquer_coup(partie, coup);
+					promotion(partie,coup); // Réalise la promotion du pion s'il peut en faire une
                     clock_t end = clock();
                     timer(start, end, partie); // On met à jour le temps restant du joueur actif
                     printf("Joueur noir il vous reste %f secondes\n", partie->Noir.time);
-                    joueur_actif = blanc;  // Changement du joueur actif une fois le coup appliqué
+
+					if(est_echec){
+						printf("Le roi Blanc est en echec !\n");
+						est_echec = 0;
+					}
+
+                    joueur_actif = (joueur_actif == noir) ? blanc : noir;  // Changement du joueur actif une fois le coup appliqué
+					partie->joueur_actif = joueur_actif;
+					printf("Changement de joueur : joueur_actif = %d\n", joueur_actif);
                 }
             }
         }
         if(partie->Blanc.score > 1000 || partie->Noir.score > 1000) // Condition qui permet de remarquer que le roi a été mangé
 		    win = 1;
+	}
+
+	// Fin de partie, annonce du gagnant :
+	if(win){
+		if(partie->Blanc.score > 1000){
+			printf("Les blancs ont gagné par echec et mat !\n");
+		}
+		else{
+			printf("Les noirs ont gagné par echec et mat !\n");
+		}
+	}
+	else{
+		if(partie->Blanc.time <= 0){
+			printf("Le joueur Blanc a perdu par manque de temps !\n");
+		}
+		else{
+			printf("Le joueur noir a perdu par manque de temps !\n");
+		}
 	}
 }
 

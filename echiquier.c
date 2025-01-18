@@ -6,7 +6,8 @@ Programme qui contient les fonctions nécessaires à la création et à l'affich
 
 *************************************************** */
 
-// Fonction pour obtenir le caractère de la pièce
+
+/* Fonction pour obtenir le caractère de la pièce */
 char aff_char(Case case_jeu) {
     switch (case_jeu.p) {
         case pion: return (case_jeu.c == blanc) ? 'P' : 'p';
@@ -19,7 +20,7 @@ char aff_char(Case case_jeu) {
     }
 }
 
-// Fonction pour obtenir la couleur d'affichage d'une pièce
+/* Fonction pour obtenir la couleur d'affichage d'une pièce */
 char* couleur_piece(Couleur c) {
     return (c == blanc) ? "\033[32m" : "\033[31m";  // Vert pour blanc, Rouge pour noir
 }
@@ -87,7 +88,7 @@ Partie creer_partie() {
 
 
 
-// Fonction pour libérer l'échiquier
+/* Fonction pour libérer l'échiquier */
 void liberer_plateau(Partie partie){
     Case **plateau = partie.echiquier;
     for (int i = 0; i < NB_LIGNE; i++) {
@@ -96,13 +97,14 @@ void liberer_plateau(Partie partie){
         free(plateau);
 }
 
-// Fonction pour afficher l'échiquier avec des couleurs de fond
+/* Fonction pour afficher l'échiquier avec des couleurs de fond */
 void afficher_plateau(Partie* partie){
     Case** plateau = partie->echiquier;
 
     for (int i = 0; i < NB_LIGNE; i++) {
-	    printf(" ");
+	    printf("   ");
         for (int j = 0; j < NB_LIGNE; j++){
+
             if ((i + j) % 2 == 0) {
                 // Case sombre : bleu foncé
                 printf("\033[48;5;17m     \033[0m");
@@ -114,8 +116,7 @@ void afficher_plateau(Partie* partie){
         printf("\n");
         // affiche les chiffres sur chaque ligne
         printf(" %d ", 1 + i);
-	printf(" ");
-
+	
         // Afficher les pièces sur chaque case
         for (int j = 0; j < NB_LIGNE; j++) {
             if ((i + j) % 2 == 0) {
@@ -127,7 +128,7 @@ void afficher_plateau(Partie* partie){
             }
         }
         printf("\n");
-
+        printf("   ");
         for (int j = 0; j < NB_LIGNE; j++) {
             if ((i + j) % 2 == 0) {
                 // Case sombre : bleu foncé
@@ -140,7 +141,7 @@ void afficher_plateau(Partie* partie){
         printf("\n");
     }
      // Affiche les lettres sous les cases
-    printf("   A     B     C     D     E     F    G");
+    printf("     A    B    C    D    E    F    G    H");
     
     printf("\n");
 }

@@ -2,13 +2,13 @@
 
 /* ********************************************************************
 Fichier qui regroupe toutes les fonctions gérant les conditions d'échec
-  fonction qui verif si le mouv que je viens de faire amene une condition d'echec avec ma piece déplacé
-  fonction qui verif si le mouv que je viens de faire amene une condition d'echec avec une piece qui peut manger le roi maintenant que j'ai bougé la piece
-  fonction qui bloque le mouvement d'une de mes pieces si elle amenerais un echec de mon roi
 *********************************************************************** */
 
 
-// on verif si le mouvement met le roi en echec
+/* *************************************************************
+Fonction qui vérifie si le mouvement met le roi adverse en echec
+Renvoie 1 si le roi adverse est en echec
+**************************************************************** */
 int RoiEnEchec(Partie* partie, Coup coup){
     int roiX, roiY;
     //on stock les coordonné du tableau avant test
@@ -18,20 +18,16 @@ int RoiEnEchec(Partie* partie, Coup coup){
     partie->echiquier[coup.yTo][coup.xTo] = partie->echiquier[coup.yFrom][coup.xFrom];
     partie->echiquier[coup.yFrom][coup.xFrom].p = vide;
 
-    //on trouve le roi
+    //on trouve le roi adverse
     for(int i = 0; i < NB_LIGNE; i++){
         for(int j = 0; j < NB_LIGNE; j++){
-            if(partie->echiquier[i][j].p == roi && partie->echiquier[i][j].c == partie->joueur_actif){
+            if(partie->echiquier[i][j].p == roi && partie->echiquier[i][j].c != partie->joueur_actif){
             roiX=i;
             roiY=j;
             }
         }
     }
 
-    //on test l'echec pour toute les pieces en utilisant 
-    //int echec = //true si le roi est en echec apres le mouvement 
-    //car apres on dois remettre le plateau comme avant donc on dois apeller 
-    //une fonction maintenant pour pouvoir renvoyer plus tard le bon return
     int echec = risquePourRoi(partie, roiX, roiY);
 
     //on remet le tableau comme avant (même chose mais dans l'autre sens)
@@ -42,10 +38,13 @@ int RoiEnEchec(Partie* partie, Coup coup){
 }
 
 
+/* ************************************************************************
+Fonction qui renvoie 1 s'il y a un risque de capturer le roi (de couleur adverse) en roiXn roiY
+************************************************************************ */
 int risquePourRoi(Partie* partie, int roiX, int roiY){
     for(int i = 0; i < NB_LIGNE; i++){
         for(int j = 0; j < NB_LIGNE; j++){
-            if(partie->echiquier[i][j].c != partie->joueur_actif){ // Il faudra surement faire un test en début de fonction de qui est le joueur actif
+            if(partie->echiquier[i][j].c == partie->joueur_actif){ // On vérifie uniquement les coups pour la couleur du joueur actif
                         Coup coup_potentiel = {i, j, roiX, roiY};
                         if(verifier_coup(partie, coup_potentiel)){
                             printf("La case %d, %d met le roi en echec", i, j);

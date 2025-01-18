@@ -1,4 +1,4 @@
-#ifndef DECLARATIONS_H // Pour pas copié / collé le fichier .h dans les différents fichiers .c
+#ifndef DECLARATIONS_H
 #define DECLARATIONS_H
 
 #include <stdlib.h>
@@ -44,7 +44,8 @@ typedef struct partie {
 
 
 
-//Définitons de toutes les fonctions
+/* Définitons de toutes les fonctions */
+// Fonctions du fichier echiquier.c
 Case** creer_plateau();
 Partie creer_partie();
 void liberer_plateau(Partie partie);
@@ -52,6 +53,7 @@ char aff_char(Case case_jeu);
 char* couleur_piece(Couleur c);
 void afficher_plateau(Partie* partie);
 
+// Fonctions du fichier joueur.c
 Coup proposition_joueur();
 int verifier_proposition(Coup prop);
 int verifier_coup(Partie* partie, Coup coup);
@@ -59,12 +61,15 @@ void timer(clock_t start, clock_t end, Partie* partie);
 void points(Partie* partie, Couleur joueur, Coup coup);
 void deroulement(Partie* partie);
 
+// Fonctions du fichier action.c
 void appliquer_coup(Partie* partie, Coup coup);
 int verti(Coup coup);
 int horiz(Coup coup);
 int diagonal(Coup coup);
 int verifCavalier(Coup coup);
+void promotion(Partie* partie, Coup coup);
 
+// Fonctions du fichier conditions_echec.c
 int RoiEnEchec(Partie* partie, Coup coup);
 int risquePourRoi(Partie* partie, int roiX, int roiY);
 
