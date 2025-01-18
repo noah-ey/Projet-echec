@@ -1,4 +1,4 @@
-#ifndef DECLARATIONS_H
+#ifndef DECLARATIONS_H // Pour pas copié / collé le fichier .h dans les différents fichiers .c
 #define DECLARATIONS_H
 
 #include <stdlib.h>
