@@ -1,3 +1,6 @@
+#ifndef DECLARATIONS_H
+#define DECLARATIONS_H
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <time.h>
@@ -64,3 +67,6 @@ int verifCavalier(Coup coup);
 
 int RoiEnEchec(Partie* partie, Coup coup);
 int risquePourRoi(Partie* partie, int roiX, int roiY);
+
+
+#endif
